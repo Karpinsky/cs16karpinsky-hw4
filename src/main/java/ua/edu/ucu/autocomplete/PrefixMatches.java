@@ -11,11 +11,11 @@ public class PrefixMatches {
     private Trie trie;
 
     public PrefixMatches(Trie trie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.trie = trie;
     }
 
     public int load(String... strings) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+
     }
 
     public boolean contains(String word) {
