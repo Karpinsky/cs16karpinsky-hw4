@@ -2,7 +2,7 @@
 package test.java.ua.edu.ucu.autocomplete;
 
 import main.java.ua.edu.ucu.autocomplete.PrefixMatches;
-import main.java.ua.edu.ucu.tries.RWayTrie;
+import main.java.ua.edu.ucu.tries.TST;
 // import org.hamcrest.Matchers.containsInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class PrefixMatchesITTest {
 
     @Before
     public void init() {
-        pm = new PrefixMatches(new RWayTrie());
+        pm = new PrefixMatches(new TST());
         pm.load("abc", "abce", "abcd", "abcde", "abcdef");
     }
 
@@ -31,7 +31,9 @@ public class PrefixMatchesITTest {
 
         String[] expResult = {"abc", "abce", "abcd", "abcde", "abcdef"};
 
-        //assertThat(result, containsInAnyOrder(expResult));
+        System.out.println(result.toString());
+
+        // assertThat(result, containsInAnyOrder(expResult));
     }
 
     @Test
@@ -43,7 +45,9 @@ public class PrefixMatchesITTest {
 
         String[] expResult = {"abc", "abce", "abcd", "abcde"};
 
-        //assertThat(result, containsInAnyOrder(expResult));
+        System.out.println(result.toString());
+
+        // assertThat(result, containsInAnyOrder(expResult));
     }
 
 }

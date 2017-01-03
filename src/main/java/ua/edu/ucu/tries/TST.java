@@ -10,7 +10,6 @@ public class TST implements Trie {
 
     public TST(){
         this.trieSize = 0;
-        this.add(new Tuple("m", 0));
     }
 
     @Override
@@ -74,7 +73,29 @@ public class TST implements Trie {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    private void traverseTST(Node<Tuple> root_, char[] buffer, int depth, List<String> words)
+    private void traverseTST(Node<Tuple> root_, char[] buffer, Integer depth, List<String> words, Integer k)
+    {
+        if (root_ != null)
+        {
+            // Traverse left sub tree
+            traverseTST(root_.left, buffer, depth, words, k);
+
+            buffer[depth] = root_.c;
+
+            if (root_.value != null && root_.value.term.length() < k)
+            {
+                words.add(root_.value.term);
+            }
+
+            // Traverse mid sub tree
+            traverseTST(root_.mid, buffer, depth + 1, words, k);
+
+            // Traverse right sub tree
+            traverseTST(root_.right, buffer, depth, words, k);
+        }
+    }
+
+    private void traverseTST(Node<Tuple> root_, char[] buffer, Integer depth, List<String> words)
     {
         if (root_ != null)
         {
@@ -95,6 +116,12 @@ public class TST implements Trie {
         }
     }
 
+    private void traverseTST(Node<Tuple> root_, List<String> words, Integer k)
+    {
+        char[] buffer = new char[64];
+        this.traverseTST(this.root, buffer, 0, words, k);
+    }
+
     private void traverseTST(Node<Tuple> root_, List<String> words)
     {
         char[] buffer = new char[64];
@@ -111,7 +138,17 @@ public class TST implements Trie {
     }
 
     @Override
-    public Iterable<String> wordsWithPrefix(String s) {
+    public Iterable<String> wordsWithPrefix(String s, Integer k) {
+        List<String> words_ = new ArrayList<>(this.trieSize);
+
+        this.traverseTST(this.get(this.root, s, 0), words_, s.length() + k);
+
+        return words_;
+    }
+
+    @Override
+    public Iterable<String> wordsWithPrefix(String s)
+    {
         List<String> words_ = new ArrayList<>(this.trieSize);
 
         this.traverseTST(this.get(this.root, s, 0), words_);

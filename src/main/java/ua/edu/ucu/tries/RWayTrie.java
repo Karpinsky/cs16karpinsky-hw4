@@ -62,6 +62,11 @@ public class RWayTrie implements Trie {
     }
 
     @Override
+    public Iterable<String> wordsWithPrefix(String pref, Integer k) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public int size() {
         return this.trieSize;
     }
